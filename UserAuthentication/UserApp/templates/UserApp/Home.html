@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment Home</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+        }
+
+        header {
+            background-color: #007BFF;
+            padding: 10px 0;
+            text-align: right;
+        }
+
+        header a {
+            color: #fff;
+            text-decoration: none;
+            margin-right: 20px;
+        }
+
+        header a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .success {
+            color: green;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="{% url 'LogOut' %}">LogOut</a>
+    </header>
+    <div class="container">
+        {% if messages %}
+        <div class="success">
+            {% for msg in messages %}
+                {{ msg }}
+            {% endfor %}
+        </div>
+        {% endif %}
+        <h1>Welcome, {{ name }}!</h1>
+        <p>This is your assignment home page. You have access to various features and functionalities.</p>
+    
+        <!-- Add the form for requesting evaluations here -->
+        <form method="POST" enctype="multipart/form-data" action="{% url 'request_evaluation' %}">
+            {% csrf_token %}
+            {{ forms.as_p }}
+            <input type="submit" class="btn" value="Submit Request">
+        </form>
+        <!-- End of the form -->
+    
+    </div>
+</body>
+</html>

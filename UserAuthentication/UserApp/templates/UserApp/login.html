@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Assignment</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .error {
+            color: red;
+            font-size: 14px;
+        }
+
+        .btn {
+            background-color: #007BFF;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        .signup-link {
+            text-align: center;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Login</h1>
+        <form action="" method="POST" novalidate>
+            {% csrf_token %}
+            {% if forms.non_field_errors %}
+            <div class="error">
+                {% for error in forms.non_field_errors %}
+                    {{ error }}
+                {% endfor %}
+            </div>
+            {% endif %}
+            {% for fm in forms %}
+                <div class="form-group">
+                    <label for="{{ fm.id_for_label }}">{{ fm.label_tag }}</label>
+                    {{ fm }}
+                    {% if fm.errors %}
+                        <div class="error">
+                            {{ fm.errors|striptags }}
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+            <input type="submit" class="btn" value="Login">
+        </form>
+        {% if messages %}
+            {% for msg in messages %}
+                <div class="{% if msg.tags %} {{ msg.tags }} {% endif %}">
+                    {{ msg }}
+                </div>
+            {% endfor %}
+        {% endif %}
+        <div class="signup-link">
+            Don't have an account? <a href="{% url 'SignUp' %}">Sign Up</a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evaluation Requests List</title>
+</head>
+<body>
+    <h1>Evaluation Requests List</h1>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Request ID</th>
+                <th>User</th>
+                <th>Object Details</th>
+                <th>Contact Method</th>
+                <th>Photo</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for request in requests %}
+            <tr>
+                <td>{{ request.id }}</td>
+                <td>{{ request.user.username }}</td>
+                <td>{{ request.object_details }}</td>
+                <td>{{ request.contact_method }}</td>
+                <td>
+                    {% if request.photo %}
+                        <img src="{{ request.photo.url }}" alt="Object Photo" style="max-width: 100px; max-height: 100px;">
+                    {% else %}
+                        No Photo
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    <a href="{% url 'LogOut' %}">Logout</a>
+</body>
+</html>
